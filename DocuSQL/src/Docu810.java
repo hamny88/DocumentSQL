@@ -33,7 +33,7 @@ public class Docu810 {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://52.202.240.75:3306/sewonedi","wenestimadm","wenestimadm38$!");
+			Connection con = DriverManager.getConnection("*************************");
 		
 			String header_array = "select ST02 from sewonedi.header_f810;";
 			Statement header_st = con.createStatement();

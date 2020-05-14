@@ -30,10 +30,9 @@ public class Docu856 {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://52.202.240.75:3306/sewonedi", "wenestimadm",
-					"wenestimadm38$!");
+			Connection con = DriverManager.getConnection("********************");
 
-			String header_array = "select ST02 from sewonedi.header_f856;";
+			String header_array = "select ST02 from **************;";
 			Statement header_st = con.createStatement();
 
 			ResultSet rs_header = header_st.executeQuery(header_array);

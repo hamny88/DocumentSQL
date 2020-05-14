@@ -30,11 +30,11 @@ public class Document810 {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://52.202.240.75:3306/sewonedi", "wenestimadm","wenestimadm38$!");
+			Connection con = DriverManager.getConnection("***********************");
 			
 			String qu = "select * from header_f810;";
 			String qu2 = "select * from detail_f810;";
-			String qu3 = "select count(IT101) from sewonedi.detail_f810;";
+			String qu3 = "select count(IT101) from********.detail_f810;";
 			
 			Statement st = con.createStatement();
 			Statement st2 = con.createStatement();

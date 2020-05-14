@@ -83,12 +83,12 @@ public class Document856 {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://52.202.240.75:3306/sewonedi", "wenestimadm","wenestimadm38$!");
+			Connection con = DriverManager.getConnection("********");
 
 			String qu = "select * from header_f856;";
 			String qu2 = "select * from shipment_f856;"; 
 			String qu3 = "select * from order_f856;";
-			String qu4 = "select O_HL01 from sewonedi.order_f856 order by O_HL01 desc limit 1;";
+			String qu4 = "select O_HL01 from ******** order by O_HL01 desc limit 1;";
 			
 			Statement st = con.createStatement();
 			Statement st2 = con.createStatement();

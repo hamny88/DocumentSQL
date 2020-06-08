@@ -35,7 +35,7 @@ public class Docu810 {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("*************************");
 		
-			String header_array = "select ST02 from sewonedi.header_f810;";
+			String header_array = "select ST02 from [Target];";
 			Statement header_st = con.createStatement();
 
 			ResultSet rs_header = header_st.executeQuery(header_array);
@@ -51,7 +51,7 @@ public class Docu810 {
 				count=0;
 				sb.setLength(0);
 				
-				String EXIST = "SELECT EXISTS (select * from detail_f810 where ST02='";
+				String EXIST = "SELECT EXISTS (select * from [Target] where ST02='";
 				EXIST +=arrayList.get(i);
 				EXIST +="')as success;";
 				
@@ -60,12 +60,12 @@ public class Docu810 {
 				
 				while(rs_EX.next()) {  //Validation
 					if(rs_EX.getInt("success")==0) {
-						String MSG="Document ST02 ";
+						String MSG="Document  ";
 						MSG +=arrayList.get(i);
 						MSG +=" Creation failed";
 						JOptionPane.showMessageDialog(null,MSG);
 					}else {
-		
+		//Query 
 						String filename_num = Filename.concat(arrayList.get(i));
 						filename_num = filename_num.concat(".txt");
 						System.out.println(filename_num);

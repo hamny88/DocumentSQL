@@ -52,11 +52,11 @@ public class Docu856 {
 				int shipment_EX = 0;
 				int total_EX = 0;
 				
-				String EXIST_S = "SELECT EXISTS (select * from shipment_f856 where ST02='";
+				String EXIST_S = "SELECT EXISTS (select * from [Target] where ST02='";
 				EXIST_S +=arrayList.get(i);
 				EXIST_S +="')as success;";
 				
-				String EXIST_O = "SELECT EXISTS (select * from order_f856 where ST02='";
+				String EXIST_O = "SELECT EXISTS (select * from [Target] where ST02='";
 				EXIST_O +=arrayList.get(i);
 				EXIST_O +="')as success;";
 				
@@ -95,12 +95,12 @@ public class Docu856 {
 					filename_num = filename_num.concat(".txt");
 					System.out.println(filename_num);
 					Docu856 = new BufferedOutputStream(new FileOutputStream(filename_num));
-					
+				//Query	
 					String header_856 = "";
-					header_856 += "	SELECT CONCAT('ST','~',ST01,'~',ST02) AS ST, \n";
-					header_856 += "		   CONCAT_WS('~','BSN',BSN01,BSN02,BSN03,BSN04)AS BSN, \n";
-					header_856 += "		   CONCAT('DTM','~',DTM01,'~',DTM02,'~',DTM03,'~',DTM04)AS DTM";
-					header_856 += " from header_f856 ";
+					header_856 += "	SELECT CONCAT([Query]) AS ST, \n";
+					header_856 += "		   CONCAT_WS([Query])AS BSN, \n";
+					header_856 += "		   CONCAT([Query])AS DTM";
+					header_856 += " from [Target] ";
 					header_856 += "WHERE ST02='";
 					header_856 += arrayList.get(i);
 					header_856 += "';";
@@ -118,26 +118,18 @@ public class Docu856 {
 					st.close();
 					
 					String shipment_856 = "";
-					shipment_856 += "SELECT concat('HL','~',S_HL01,'~~',S_HL03)AS HL, \n";
-					shipment_856 += "		concat_WS('~','MEA',G_MEA01,'G',G_MEA03,G_MEA04)AS G_MEA, \n";
-					shipment_856 += "		concat_WS('~','MEA',N_MEA01,'N',N_MEA03,N_MEA04)AS N_MEA, \n";
-					shipment_856 += "		concat('TD1','~',COALESCE(TD101,''),'~',COALESCE(TD102,''))AS TD1, \n";
-					shipment_856 += "		concat_WS('~','TD5',TD501,TD502,TD503,TD504,TD505,'~',TD507,TD508)AS TD5,";
-					shipment_856 += "		concat('TD3','~',COALESCE(TD301,'~'),'~',COALESCE(TD302,''),'~',COALESCE(TD303,''))AS TD3, \n";
-					shipment_856 += "		concat('N1','~','ST','~~',ST_N103,'~',ST_N104)AS ST_N, \n";
-					shipment_856 += "		concat('N1','~','SU','~~',SU_N103,'~',SU_N104)AS SU_N, \n";
-					shipment_856 += "		concat('N1','~','SF','~~',SF_N103,'~',SF_N104)AS SF_N, \n";
-					shipment_856 += "		concat('N1','~','MA','~~',MA_N103,'~',MA_N104)AS MA_N, \n";
-					shipment_856 += " 		concat('REF','~','AO','~',AO_REF02)AS AO_REF, \n";
-					shipment_856 += "  		concat('REF','~','AW','~',AW_REF02)AS AW_REF, \n";
-					shipment_856 += "  		concat('REF','~','BM','~',BM_REF02)AS BM_REF, \n";
-					shipment_856 += "		concat('REF','~','CN','~',CN_REF02)AS CN_REF, \n";
-					shipment_856 += "		concat('REF','~','FR','~',FR_REF02)AS FR_REF, \n";
-					shipment_856 += "		concat('REF','~','MB','~',MB_REF02)AS MB_REF, \n";
-					shipment_856 += " 		concat('REF','~','PK','~',PK_REF02)AS PK_REF, \n";
-					shipment_856 += "		concat('REF','~','SN','~',SN_REF02)AS SN_REF, \n";
-					shipment_856 += "		concat('REF','~','DK','~',DK_REF02)AS DK_REF \n";
-					shipment_856 += "		from shipment_f856";
+					shipment_856 += "SELECT concat([Query])AS HL, \n";
+					shipment_856 += "		concat_WS([Query])AS G_MEA, \n";
+					shipment_856 += "		concat_WS([Query])AS N_MEA, \n";
+					shipment_856 += "		concat([Query])AS TD1, \n";
+					shipment_856 += "		concat_WS([Query])AS TD5,";
+					shipment_856 += "		concat([Query])AS TD3, \n";
+					shipment_856 += "		concat([Query])AS ST_N, \n";
+					shipment_856 += "		concat([Query])AS SU_N, \n";
+					shipment_856 += "		concat([Query])AS SF_N, \n";
+					shipment_856 += "		concat([Query])AS MA_N, \n";
+					shipment_856 += " 		concat([Query])AS AO_REF, \n";
+					shipment_856 += "		from [Target]";
 					shipment_856 += "		WHERE ST02='";
 					shipment_856 +=arrayList.get(i);
 					shipment_856 +="';";
@@ -149,34 +141,19 @@ public class Docu856 {
 					while (rs2.next()) {
 						System.out.println("RS2");
 						sb.append(Nullcheck((rs2.getString("HL"))));
-						sb.append(Nullcheck((rs2.getString("G_MEA"))));
-						sb.append(Nullcheck((rs2.getString("N_MEA"))));
-						sb.append(Nullcheck((rs2.getString("TD1"))));
-						sb.append(Nullcheck((rs2.getString("TD5"))));
-						sb.append(Nullcheck((rs2.getString("TD3"))));
-						sb.append(Nullcheck(rs2.getString("ST_N")));
-						sb.append(Nullcheck((rs2.getString("SU_N"))));
-						sb.append(Nullcheck((rs2.getString("SF_N"))));
-						sb.append(Nullcheck((rs2.getString("MA_N"))));
-						sb.append(Nullcheck((rs2.getString("AO_REF"))));
-						sb.append(Nullcheck((rs2.getString("AW_REF"))));
-						sb.append(Nullcheck((rs2.getString("BM_REF"))));
-						sb.append(Nullcheck((rs2.getString("CN_REF"))));
-						sb.append(Nullcheck((rs2.getString("FR_REF"))));
-						sb.append(Nullcheck((rs2.getString("MB_REF"))));
-						sb.append(Nullcheck((rs2.getString("PK_REF"))));
-						sb.append(Nullcheck((rs2.getString("SN_REF"))));
-						sb.append(Nullcheck((rs2.getString("DK_REF"))));
+			/*
+			SECRET
+			*/
 						sb.append("\n");
 					}
 					st2.close();
 					
 					String order_f856 = "";
-					order_f856 += "SELECT CONCAT_WS('~','HL',O_HL01,O_HL02,O_HL03)AS O_HL, \n";
-					order_f856 += "CONCAT_WS('~','LIN~',LIN02,LIN03,LIN04,LIN05,LIN06,LIN07)AS LIN, \n";
-					order_f856 += "CONCAT_WS('~','SN1~',SN102,SN103,SN104)AS SN1, \n";
-					order_f856 += "CONCAT('PRF','~',PRF01)AS PRF \n ";
-					order_f856 += "from order_f856";
+					order_f856 += "SELECT CONCAT_WS([Query])AS O_HL, \n";
+					order_f856 += "CONCAT_WS([Query])AS LIN, \n";
+					order_f856 += "CONCAT_WS([Query])AS SN1, \n";
+					order_f856 += "CONCAT([Query])AS PRF \n ";
+					order_f856 += "from [Target]";
 					order_f856 += "		WHERE ST02='";
 					order_f856 +=arrayList.get(i);
 					order_f856 +="';";
@@ -197,7 +174,7 @@ public class Docu856 {
 					qu+=arrayList.get(i);
 					qu+="'order by O_HL01 desc limit 1;";
 					
-					String SE = "SELECT ST02 AS SE from order_f856 order by SE desc limit 1;";
+					String SE = "SELECT ST02 AS SE from [Query] order by SE desc limit 1;";
 					
 					Statement st4 = con.createStatement();
 					Statement st5 = con.createStatement();
